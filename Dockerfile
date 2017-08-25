@@ -31,7 +31,8 @@ RUN groupadd -g 1001 activemq && \
     rm -rf /tmp/* && \
     mkdir -p $ACTIVEMQ_BASE/data && cp -rf $ACTIVEMQ_HOME/conf $ACTIVEMQ_BASE && \
     chown -R 1001:activemq /var && \
-    chomd -R g+rw /var
+    chmod -R g+rw /var
+
 
 COPY activemq-entrypoint.sh /
 
