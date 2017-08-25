@@ -16,8 +16,8 @@ ENV ACTIVEMQ_VERSION="5.13.2" \
     ACTIVEMQ_BASE="/var/lib/activemq" \
     ACTIVEMQ_OPTS_MEMORY="-Xms256M -Xmx256M"
 
-RUN groupadd -g 1000 activemq && \
-    useradd -g activemq -u 1000 -r -M activemq && \
+RUN groupadd -g 1001 activemq && \
+    useradd -g activemq -u 1001 -r -M activemq && \
     mkdir -p $ACTIVEMQ_HOME && \
     curl -SL http://www.apache.org/dist/activemq/KEYS -o /tmp/KEYS && \
     curl -SL http://archive.apache.org/dist/activemq/$ACTIVEMQ_VERSION/apache-activemq-$ACTIVEMQ_VERSION-bin.tar.gz -o /tmp/apache-activemq.tar.gz && \
@@ -35,6 +35,8 @@ COPY activemq-entrypoint.sh /
 EXPOSE 61616 5672 61613 1883 61614 8161
 
 VOLUME ["/var/lib/activemq/data"]
+
+USER 1001
 
 ENTRYPOINT ["/activemq-entrypoint.sh"]
 
