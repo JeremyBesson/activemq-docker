@@ -5,7 +5,7 @@ run_activemq() {
     #chown -R activemq:activemq $ACTIVEMQ_BASE
     #chown -R activemq:activemq $ACTIVEMQ_BASE
 
-    exec gosu activemq /usr/local/bin/activemq ${@:-console}
+    exec gosu 1001 /usr/local/bin/activemq ${@:-console}
 }
 
 case "$1" in
