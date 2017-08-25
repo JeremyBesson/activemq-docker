@@ -2,7 +2,8 @@
 set -e
 
 run_activemq() {
-    chown -R activemq:activemq $ACTIVEMQ_BASE
+    #chown -R activemq:activemq $ACTIVEMQ_BASE
+    #chown -R activemq:activemq $ACTIVEMQ_BASE
 
     exec gosu activemq /usr/local/bin/activemq ${@:-console}
 }
