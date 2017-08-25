@@ -16,8 +16,8 @@ ENV ACTIVEMQ_VERSION="5.13.2" \
     ACTIVEMQ_BASE="/var/lib/activemq" \
     ACTIVEMQ_OPTS_MEMORY="-Xms256M -Xmx256M"
 
-RUN groupadd -g 1001 activemq && \
-    useradd -g activemq -u 1001 -r -M activemq && \
+RUN groupadd -g 999 activemq && \
+    useradd -g activemq -u 999 -r -M activemq && \
     #useradd -u 1001 -g 0 default && \
     mkdir -p $ACTIVEMQ_HOME && \
     curl -SL http://www.apache.org/dist/activemq/KEYS -o /tmp/KEYS && \
@@ -40,7 +40,7 @@ EXPOSE 61616 5672 61613 1883 61614 8161
 
 VOLUME ["/var/lib/activemq/data"]
 
-USER 1001
+USER 999
 
 ENTRYPOINT ["/activemq-entrypoint.sh"]
 
