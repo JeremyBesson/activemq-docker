@@ -40,8 +40,9 @@ EXPOSE 61616 5672 61613 1883 61614 8161
 
 VOLUME ["/var/lib/activemq/data"]
 
-USER 1001
 
 ENTRYPOINT ["/activemq-entrypoint.sh"]
+
+USER 1001
 
 CMD ["activemq"]
