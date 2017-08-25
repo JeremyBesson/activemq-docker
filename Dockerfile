@@ -18,6 +18,7 @@ ENV ACTIVEMQ_VERSION="5.13.2" \
 
 RUN groupadd -g 1001 activemq && \
     useradd -g activemq -u 1001 -r -M activemq && \
+    #useradd -u 1001 -g 0 default && \
     mkdir -p $ACTIVEMQ_HOME && \
     curl -SL http://www.apache.org/dist/activemq/KEYS -o /tmp/KEYS && \
     curl -SL http://archive.apache.org/dist/activemq/$ACTIVEMQ_VERSION/apache-activemq-$ACTIVEMQ_VERSION-bin.tar.gz -o /tmp/apache-activemq.tar.gz && \
@@ -28,7 +29,9 @@ RUN groupadd -g 1001 activemq && \
     chmod -R a+r /usr/local/activemq && \
     ln -s /usr/local/activemq/bin/activemq /usr/local/bin/activemq && \
     rm -rf /tmp/* && \
-    mkdir -p $ACTIVEMQ_BASE/data && cp -rf $ACTIVEMQ_HOME/conf $ACTIVEMQ_BASE
+    mkdir -p $ACTIVEMQ_BASE/data && cp -rf $ACTIVEMQ_HOME/conf $ACTIVEMQ_BASE && \
+    chown -R 1001:activemq /var && \
+    chomd -R g+rw /var
 
 COPY activemq-entrypoint.sh /
 
