@@ -1,5 +1,5 @@
 FROM java:7
-MAINTAINER John Paul Alcala, jpalcala@ayannah.com
+MAINTAINER Jérémy Besson, jebes@smile.fr
 
 # Taken from Postgres Official Dockerfile.
 # grab gosu for easy step-down from root
@@ -16,9 +16,7 @@ ENV ACTIVEMQ_VERSION="5.13.2" \
     ACTIVEMQ_BASE="/var/lib/activemq" \
     ACTIVEMQ_OPTS_MEMORY="-Xms256M -Xmx256M"
 
-#RUN groupadd -g 0 activemq && \
 RUN useradd -g 0 -u 1001 -r -M activemq && \
-    #useradd -u 1001 -g 0 default && \
     mkdir -p $ACTIVEMQ_HOME && \
     curl -SL http://www.apache.org/dist/activemq/KEYS -o /tmp/KEYS && \
     curl -SL http://archive.apache.org/dist/activemq/$ACTIVEMQ_VERSION/apache-activemq-$ACTIVEMQ_VERSION-bin.tar.gz -o /tmp/apache-activemq.tar.gz && \
@@ -30,9 +28,7 @@ RUN useradd -g 0 -u 1001 -r -M activemq && \
     ln -s /usr/local/activemq/bin/activemq /usr/local/bin/activemq && \
     rm -rf /tmp/* && \
     mkdir -p $ACTIVEMQ_BASE/data && cp -rf $ACTIVEMQ_HOME/conf $ACTIVEMQ_BASE && \
-    chown -R 1001:0 /var && \
-    chown -R 1001:0 $ACTIVEMQ_BASE && \
-    chown -R 1001:0 /usr/local/bin && \
+    chown -R 1001:0 /var $ACTIVEMQ_BASE /usr/local/bin && \
     chmod -R g+rw /var /usr
 
 
