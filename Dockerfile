@@ -16,8 +16,8 @@ ENV ACTIVEMQ_VERSION="5.13.2" \
     ACTIVEMQ_BASE="/var/lib/activemq" \
     ACTIVEMQ_OPTS_MEMORY="-Xms256M -Xmx256M"
 
-#RUN groupadd -g 0 activemq && \
-RUN useradd -g 0 -u 1001 -r -M activemq && \
+RUN groupadd -g 0 activemq && \
+    useradd -g 0 -u 1001 -r -M activemq && \
     #useradd -u 1001 -g 0 default && \
     mkdir -p $ACTIVEMQ_HOME && \
     curl -SL http://www.apache.org/dist/activemq/KEYS -o /tmp/KEYS && \
@@ -31,6 +31,8 @@ RUN useradd -g 0 -u 1001 -r -M activemq && \
     rm -rf /tmp/* && \
     mkdir -p $ACTIVEMQ_BASE/data && cp -rf $ACTIVEMQ_HOME/conf $ACTIVEMQ_BASE && \
     chown -R 1001:0 /var && \
+    chown -R 1001:activemq $ACTIVEMQ_BASE \
+    chown -R 1001:activemq /usr/local/bin \
     chmod -R g+rw /var /usr
 
 
